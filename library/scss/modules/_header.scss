@@ -1,0 +1,290 @@
+nav.top {
+	display: flex;
+	justify-content: space-between;
+	z-index: 100;
+	@include space(1, 'padding-bottom');
+	@include space(1, 'padding-top');
+
+
+	@include mq($from: desktop) {
+		@include space(1.2, 'padding-top');
+		@include space(1.7, 'padding-bottom');
+	}
+
+	body.home & {
+		@include mq($until: tablet) {
+			padding-bottom: 74px;
+		}
+	}
+
+	div.top-wrapper {
+		width: spanGrid(14);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		position: relative;
+		@include mq($from: tablet, $until: desktop) {
+			padding-top: $space;
+		}
+		@include mq($until: desktop) {
+			flex-wrap: wrap;
+		}
+
+		p {
+			color: $light-gray;
+			margin: 0;
+		}
+
+		p.small {
+			@include mq($until: tablet) {
+				display: none;
+			}
+		}
+
+	}
+
+	ul {
+		list-style: none;
+		display: flex;
+		@include space(1.2, 'padding-top');
+	}
+
+	.sub-menu {
+		@include mq($until: desktop) {
+			background: $light-gray;
+			padding-top: 8px;
+			padding-bottom: 8px;
+			margin-top: $space;
+			width: 100%;
+			margin-right: 0;
+			white-space: nowrap;
+ 			overflow-x: auto;
+ 			-webkit-overflow-scrolling: touch;
+ 			-ms-overflow-style: -ms-autohiding-scrollbar;
+
+			&::-webkit-scrollbar {
+  			display: none;
+			 }
+
+			 li:last-child {
+				 padding-right: .75em;
+			 }
+		}
+		@include mq($from: tablet, $until: desktop) {
+			margin-top: $space * 2;
+		}
+
+
+		li {
+			padding-left: .75em;
+
+		}
+	}
+
+	.breadcrumb {
+		flex: 1;
+
+		li {
+		&:not(:last-child):after {
+			content: "›";
+			padding-right: .25em;
+			padding-left: .25em;
+			font-weight: bold;
+		}
+		}
+	}
+
+	.menu-header, .breadcrumb {
+		@include mq($from: tablet) {
+			margin-left: spanGridWithGutter(2);
+		}
+	}
+
+	.menu-header {
+		display: none;
+	}
+}
+
+nav.search {
+	@include mq($until: desktop) {
+		display: none;
+	}
+	position: fixed;
+	top: calc(100vh - 95px);
+
+	&:hover {
+		cursor: pointer;
+	}
+
+}
+
+nav.logo{
+	position: absolute;
+	z-index: 101;
+	padding-top: $space * 1.5;
+	width: 11.5vw;
+	max-width: 170px;
+	height: 58px;
+
+	@include mq($from: tablet) {
+		height: 110px;
+	}
+
+	@include mq($from: desktop) {
+		position: fixed;
+	}
+
+	figure {
+		display: flex;
+		height: 100%;
+
+		img {
+			object-fit: contain;
+	    object-position: left;
+		}
+	}
+}
+
+nav.main {
+	z-index: 100;
+	display: none;
+	margin-left: spanGridWithGutter(2);
+	position: absolute;
+	width: 100% - spanGridWithGutter(2);
+  flex-wrap: wrap;
+  height: calc(100% - 108px); //Snygga upp sen!!!
+
+	.main-nav {
+		@include mq($until: desktop) {
+			width: 90%;
+		}
+		width: 100%;
+	}
+
+	ul {
+		@include mq($from: desktop) {
+			column-count: 2;
+		}
+		list-style: none;
+		flex: 1;
+
+		li {
+			padding-bottom: .2em;
+			transition: padding-left .2s;
+
+			&:hover {
+				@include mq($from: desktop) {
+					padding-left: 0.2em;
+				}
+			}
+		}
+
+		a {
+			border-bottom: none;
+		}
+	}
+}
+
+button.hamburger {
+	h1.cross {
+		display: none;
+	}
+}
+
+body.open-nav {
+	background: $menu-gray;
+
+	.container {
+		display: block;
+	}
+
+	.sub-menu {
+		display: none;
+	}
+
+	.logged-in-container {
+		display: none;
+	}
+
+	main {
+		display: none;
+	}
+
+	.logo h1{
+		color: $black !important;
+	}
+
+	footer, main, .breadcrumb, .top ul {
+		opacity: 0;
+	}
+
+	.menu-header {
+		display: block;
+		opacity: 1 !important;
+	}
+
+	nav.main {
+		display: flex;
+	}
+
+	nav.top {
+		@include mq($until: desktop) {
+			padding-bottom: 1 * $space;
+		}
+	}
+
+	.hamburger h1 {
+		&.cross {
+			display: block;
+		}
+		&.burger {
+			display: none;
+		}
+	}
+
+	.search-form {
+	  display: flex;
+		width: 100%;
+		height: auto;
+		align-self: flex-end;
+		padding-top: $space;
+		padding-bottom: $space * 1.5;
+
+		label {
+			span {
+				display: none;
+			}
+			width: spanNestedGrid(12,6);
+		}
+
+		.search-field {
+			height: 90px;
+			line-height: 64px;
+			@include mq($from: tablet) {
+				line-height: 90px;
+			}
+		}
+
+		.search-submit {
+			margin-left: $gutter;
+			width: 100px;
+    	border: 1px solid gray;
+    	background: transparent;
+
+			@include mq($from: desktop) {
+				width: 200px;
+				line-height: 90px;
+			}
+		}
+
+		.search-field, .search-submit {
+			height: 60px;
+
+			@include mq($from: desktop) {
+				height: 90px;
+			}
+		}
+
+	}
+
+}

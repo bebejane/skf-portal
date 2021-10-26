@@ -1,0 +1,150 @@
+body.page-template-page-start {
+
+  background: #fa6e5a !important;
+
+  .logo {
+
+    @include mq($until: tablet) {
+      display: none;
+    }
+
+    h1 {
+    color: $black !important;
+    animation: none;
+    max-width: 80vw;
+    font-size: $headline-size * 0.7;
+    @include mq($from: tablet) {
+      font-size: $headline-size * 1;
+      }
+    }
+  }
+
+  section.start-headline {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    border-top: 1px solid $light-gray;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    padding-top: 30px;
+    padding-bottom: 24px;
+  }
+
+  section.intro p {
+    @include mq($until: tablet) {
+      margin-bottom: 0;
+    }
+  }
+
+}
+
+section.big-image {
+  width: 100%;
+  @include space(2,'padding-bottom');
+
+  @include mq($until: desktop) {
+    margin-bottom: $space;
+  }
+
+  @include mq($from: desktop) {
+    //padding-top: $space;
+  }
+
+  a:hover {
+    border-bottom: 0px !important;
+  }
+
+  h1 {
+    padding-bottom: 10px;
+  }
+
+  article {
+    display: flex;
+    width: 100%;
+    @include mq($until: desktop) {
+      flex-wrap: wrap;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  h5 {
+    padding-top: 1em;
+  }
+
+  span.post-type {
+    display: inline;
+  }
+
+  figure {
+    width: 100%;
+    border: $image-border;
+
+    @include mq($from: desktop) {
+      width: spanNestedGrid(12,7);
+    }
+
+    @include aspect-ratio(16, 10);
+
+    .content {
+      display: flex;
+      img {
+        object-fit: cover;
+      }
+    }
+  }
+
+  div.text {
+    @include mq($from: desktop) {
+      width: spanNestedGrid(12,5);
+      padding-left: $gutter * 2;
+    }
+
+    h5 {
+      @include mq($from: tablet) {
+        @include space(1,'padding-bottom');
+      }
+    }
+
+  }
+
+}
+
+section.map-intro {
+  @include mq($until: tablet) {
+    flex-direction: column;
+
+    h6 {
+      padding-bottom: 1em;
+    }
+  }
+
+
+  h6 {
+    @include mq($from: desktop) {
+      width: spanNestedGrid(12,3);
+    }
+  }
+
+  p {
+    @include mq($from: desktop) {
+      width: spanNestedGrid(12,9);
+    }
+  }
+
+
+}
+
+.selected {
+  a {
+    display: none;
+  }
+  a:nth-child(-n+8) {
+    color: green;
+    display: block;
+}
+}

@@ -1,0 +1,43 @@
+{
+    "key": "group_5fc4a079dc52d",
+    "title": "Exkludera",
+    "fields": [
+        {
+            "key": "field_5fc4a0a7e52e4",
+            "label": "Visa inte nyheter från dessa webbplatser",
+            "name": "excluded_sites",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "theme-general-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "modified": 1606721751
+}
