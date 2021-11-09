@@ -430,4 +430,10 @@ function r0bsc0tt_single_image_filter($size){
     }
 }
 
+// Debug helper
+function DEBUG($obj)
+{
+    error_log(print_r($obj, true));
+}
+
 /* DON'T DELETE THIS CLOSING TAG */ ?>

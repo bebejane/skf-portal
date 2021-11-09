@@ -22,7 +22,6 @@ function bounced_email_webhook(){
 	$entityBody = file_get_contents('php://input');
 	$payload = parse_payload_data($entityBody);
 	$data = get_by_sendgrid_id($payload['sg_message_id']);
-	
 	if($data and $payload){
 		send_bounced_email($data, $payload['error_email']);
 		return wp_send_json(array(
@@ -33,7 +32,7 @@ function bounced_email_webhook(){
 		));
 		DEBUG('success sending bounce to ' . $data['reply_to']);
 	} else {
-		DEBUG('something is wrong');
+		DEBUG('data or payload empty!');
 		DEBUG($data);
 		DEBUG($payload);
 		wp_send_json( array('success' => false), 200 );
@@ -46,11 +45,13 @@ function get_by_sendgrid_id($sg_message_id){
 	if(!function_exists('get_sites')){
 		return get_post_and_reply_to($sg_message_id);
 	}
+	
 	$subsites = get_sites(array(
 		'order_by' => 'last_updated',
 		'order'  => 'DESC',
-		'number' => 50,
+		'number' => 10000,
 	));
+	
 	foreach( $subsites as $subsite ) {
 		$subsite_id = get_object_vars($subsite)["blog_id"];
 		switch_to_blog($subsite_id);
@@ -75,6 +76,8 @@ function get_post_and_reply_to($sg_message_id){
 			)
 		)
 	));
+	DEBUG('find sg_posts ' . $sg_message_id . ' ' . count($posts));
+
 	if( $posts ) {
 		if(function_exists('get_blog_details')){
     	$blog = get_blog_details();
@@ -88,7 +91,6 @@ function get_post_and_reply_to($sg_message_id){
 
 function parse_payload_data($data) {
 	$json = json_decode($data, true);
-	DEBUG($json);
 	if(!$json){
 		return null;
 	}
