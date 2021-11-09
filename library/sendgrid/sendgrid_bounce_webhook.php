@@ -18,7 +18,6 @@ add_action( 'rest_api_init', function () {
 
 function bounced_email_webhook(){
 
-	DEBUG('bounce web hook');
 	$entityBody = file_get_contents('php://input');
 	$payload = parse_payload_data($entityBody);
 	$data = get_by_sendgrid_id($payload['sg_message_id']);
@@ -76,8 +75,7 @@ function get_post_and_reply_to($sg_message_id){
 			)
 		)
 	));
-	DEBUG('find sg_posts ' . $sg_message_id . ' ' . count($posts));
-
+	
 	if( $posts ) {
 		if(function_exists('get_blog_details')){
     	$blog = get_blog_details();
@@ -109,14 +107,14 @@ function send_bounced_email($data, $error_email){
 	$from_name = $data['from_name'];
 	$post = $data['post'];
 
-	$text = 'Det uppstod ett fel med erat senaste utskick "' . $post->post_title .'".\n\nDet gick inte att leverera meddelandet till följande e-mail adress:  ' . $error_email .'';
-	$html = '<p>Det uppstod ett fel med erat senaste utskick "<b>' . $post->post_title .'</b></p>".<p>Det gick inte att leverera meddelandet till följande e-mail adress:  <b>' . $error_email .'</b></p>';
+	$text = 'Det uppstod ett fel med utskicket: ' . $post->post_title . '.\n\nDet gick inte att leverera meddelandet till följande adress:  ' . $error_email .'';
+	$html = '<p>Det uppstod ett fel med utskicket: <b>' . $post->post_title . '</b></p><p>Det gick inte att leverera meddelandet till följande adress:  <b>' . $error_email . '</b></p>';
 
 	$email = new Mail();
 	$email->setFrom(SENDGRID_EMAIL, $from_name);
 	$email->addTos([$reply_to => '']);
 	$email->setReplyTo($reply_to);
-	$email->setSubject('Utskick: Ogliltig email adress');
+	$email->setSubject('Utskick: Ogliltig e-postadress');
 	$email->addContent("text/plain", $text);
 	$email->addContent("text/html", $html);
 	$sendgrid = new \SendGrid(SENDGRID_API_KEY);
