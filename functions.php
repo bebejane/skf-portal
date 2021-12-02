@@ -6,8 +6,8 @@ require_once( 'library/bones.php' );
 // USE THIS TEMPLATE TO CREATE CUSTOM POST TYPES EASILY
 require_once( 'library/cpts/activities.php' );
 
-// Hantera bounced email från SendGrid
-require_once "library/sendgrid/sendgrid_bounce_webhook.php";
+// Hantera bounced email från PostMark
+require_once "library/postmark/postmark_bounce_webhook.php";
 
 // CUSTOMIZE THE WORDPRESS ADMIN
 // require_once( 'library/admin.php' );
@@ -431,7 +431,7 @@ function r0bsc0tt_single_image_filter($size){
 }
 
 // Debug helper
-function DEBUG($obj)
+function debug($obj)
 {
     error_log(print_r($obj, true));
 }
