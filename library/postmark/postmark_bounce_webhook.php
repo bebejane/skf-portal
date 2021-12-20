@@ -22,6 +22,7 @@ function bounced_email_webhook(){
 	$entityBody = file_get_contents('php://input');
 	$payload = json_decode($entityBody, true);
 	$data = get_by_postmark_id($payload['MessageID']);
+
 	if($data and $payload){
 		send_bounced_email($data, $payload['Email']);
 		return wp_send_json(array(
@@ -71,8 +72,9 @@ function get_post_and_reply_to($pm_message_id){
 		'post_type' => 'newsletter',
 		'meta_query' => array(
 			array(
-				'key' => 'pm_message_id',
+				'key' => 'pm_message_ids',
 				'value' => $pm_message_id,
+				'compare' => 'LIKE'
 			)
 		)
 	));
